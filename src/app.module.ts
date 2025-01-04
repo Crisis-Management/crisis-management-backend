@@ -10,6 +10,10 @@ import { FacilityModule } from './facility/facility.module';
 import { TaskModule } from './task/task.module';
 import { NotificationModule } from './notification/notification.module';
 import { DatabaseModule } from './database/database.module';
+import { AuthService } from './auth/auth.service';
+import { AuthController } from './auth/auth.controller';
+import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -22,8 +26,10 @@ import { DatabaseModule } from './database/database.module';
     TaskModule,
     NotificationModule,
     DatabaseModule,
+    AuthModule,
+    JwtModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, AuthController],
+  providers: [AppService, AuthService],
 })
 export class AppModule {}
