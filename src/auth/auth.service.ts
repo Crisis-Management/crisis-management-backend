@@ -40,6 +40,7 @@ export class AuthService {
   }
 
   async userLogin(data: UserLoginDto): Promise<any> {
+
     const user = await this.usersRepository.findOne({
       where: { email: data.email },
     });

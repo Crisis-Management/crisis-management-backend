@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer';
 import { IsDate, IsEmail, IsNumber, IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
   @IsNumber()
@@ -38,29 +39,53 @@ export class CreateUserDto {
 }
 
 export class SignupDto {
+  @ApiProperty({
+    example: 'John',
+  })
   @IsString()
   firstName: string;
 
+  @ApiProperty({
+    example: 'Doe',
+  })
   @IsString()
   lastName: string;
 
+  @ApiProperty({
+    example: 'john.doe@example.com',
+  })
   @IsString()
   email: string;
 
+  @ApiProperty({
+    example: 'password',
+  })
   @IsString()
   password: string;
 
+  @ApiProperty({
+    example: '1234567890',
+  })
   @IsString()
   phone: string;
 
+  @ApiProperty({
+    example: 'New York',
+  })
   @IsString()
   location: string;
 }
 
 export class UserLoginDto {
+  @ApiProperty({
+    example: 'john.doe@example.com',
+  })
   @IsEmail()
   email: string;
 
+  @ApiProperty({
+    example: '123',
+  })
   @IsString()
   password: string;
 }
