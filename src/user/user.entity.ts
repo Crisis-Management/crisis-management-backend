@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('user_entity')
+@Entity('User')
 export class UserEntity {
   @PrimaryGeneratedColumn()
   userId?: string;
@@ -11,7 +11,7 @@ export class UserEntity {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ default: 'customer' })
   userType: 'customer' | 'provider' | 'admin';
 
   @Column()
@@ -26,12 +26,16 @@ export class UserEntity {
   @Column()
   location: string;
 
-  @Column()
-  registrationDate?: Date;
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
+  })
+  registrationDate: Date;
 
-  @Column()
+  @Column({ default: 'active' })
   status: 'active' | 'inactive';
 
-  @Column()
+  @Column({ nullable: true })
   profilePicture?: string;
 }
