@@ -52,6 +52,11 @@ export class SignupDto {
   lastName: string;
 
   @ApiProperty({
+    example: 'customer',
+  })
+  userType: 'customer' | 'provider' | 'admin';
+
+  @ApiProperty({
     example: 'john.doe@example.com',
   })
   @IsString()
@@ -67,7 +72,7 @@ export class SignupDto {
     example: '1234567890',
   })
   @IsString()
-  phone: string;
+  phoneNumber: string;
 
   @ApiProperty({
     example: 'New York',

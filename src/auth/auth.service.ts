@@ -24,23 +24,29 @@ export class AuthService {
 
   async registerUser(data: SignupDto): Promise<any> {
     const hashedPassword = await this.hashPassword(data.password);
+
     const userExists = await this.usersRepository.findOne({
       where: { email: data.email },
     });
+
     if (!userExists) {
-      const newUser = await this.usersRepository.create({
+      // Exclude `registrationDate` to let the database default handle it
+      const newUser = this.usersRepository.create({
         ...data,
+        // phoneNumber: data.phone,
         password: hashedPassword,
       });
+
       await this.usersRepository.save(newUser);
+
       const { password, ...userData } = newUser;
       return userData;
     }
+
     throw new BadRequestException('User already exists');
   }
 
   async userLogin(data: UserLoginDto): Promise<any> {
-
     const user = await this.usersRepository.findOne({
       where: { email: data.email },
     });
