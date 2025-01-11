@@ -4,7 +4,7 @@ import { Role } from './permissions.enums';
 import { ROLES_KEY } from './role.decorator';
 
 @Injectable()
-export class RoleGuard implements CanActivate {
+export class RolesGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
@@ -17,6 +17,9 @@ export class RoleGuard implements CanActivate {
     }
     const { user } = context.switchToHttp().getRequest();
 
-    return requiredRoles.some((role) => user.role?.includes(role));
+    if (!user) {
+      return false;
+    }
+    return requiredRoles.some((role) => user.roles.includes(role));
   }
 }

@@ -1,3 +1,4 @@
+import { Role } from 'src/auth/permissions.enums';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('User')
@@ -11,8 +12,8 @@ export class UserEntity {
   @Column()
   password: string;
 
-  @Column({ default: 'customer' })
-  userType: 'customer' | 'provider' | 'admin';
+  @Column({ type: 'enum', enum: Role, default: Role.CUSTOMER })
+  userType: Role;
 
   @Column()
   firstName: string;
