@@ -1,5 +1,6 @@
-import { Role } from 'src/auth/permissions.enums';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Role } from '../auth/permissions.enums';
+import { RequestEntity } from '../request/request.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('User')
 export class UserEntity {
@@ -39,4 +40,8 @@ export class UserEntity {
 
   @Column({ nullable: true })
   profilePicture?: string;
+
+  @OneToMany(() => RequestEntity, (request) => request.user)
+  requests: RequestEntity[];
 }
+
