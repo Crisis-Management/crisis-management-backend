@@ -1,8 +1,7 @@
+import { PartialType } from '@nestjs/swagger';
 import { IsDate, IsNumber, IsString } from 'class-validator';
 
 export class CreateResourceDto {
-  @IsNumber()
-  resourceId?: number;
   @IsString()
   type: string;
   @IsString()
@@ -18,3 +17,5 @@ export class CreateResourceDto {
   @IsDate()
   lastUpdated?: Date;
 }
+
+export class UpdateResourceDto extends PartialType(CreateResourceDto) {}
