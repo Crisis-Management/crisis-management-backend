@@ -42,4 +42,10 @@ export class ResourceService {
     const resource = await this.findOne(id);
     await this.resourceRepository.remove(resource);
   }
+
+  async checkAvailability(type: string): Promise<ResourceEntity[]> {
+    return await this.resourceRepository.find({
+      where: { type, status: 'available' },
+    });
+  }
 }

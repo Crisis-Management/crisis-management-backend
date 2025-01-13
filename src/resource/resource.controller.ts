@@ -41,4 +41,9 @@ export class ResourceController {
   async remove(@Param('id') id: number) {
     return await this.resourceService.remove(+id);
   }
+
+  @Get('available/:type')
+  async checkAvailability(@Param('type') type: string) {
+    return await this.resourceService.checkAvailability(type);
+  }
 }
