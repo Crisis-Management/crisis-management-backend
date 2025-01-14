@@ -1,22 +1,30 @@
-import { IsDate, IsNumber, IsString } from 'class-validator';
+import { IsString, IsDate, IsOptional } from 'class-validator';
 
 export class CreateIncidentDto {
-  @IsNumber()
-  incidentId?: number;
   @IsString()
   type: string;
+
   @IsString()
   severity: string;
+
   @IsString()
   location: string;
+
   @IsString()
   status: string;
+
+  @IsOptional()
   @IsString()
-  description: string;
+  description?: string;
+
   @IsDate()
   startTime: Date;
+
+  @IsOptional()
   @IsDate()
   endTime?: Date;
+
+  @IsOptional()
   @IsString()
-  affectedArea: string;
+  affectedArea?: string;
 }
