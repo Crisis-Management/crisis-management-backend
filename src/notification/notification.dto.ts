@@ -4,7 +4,7 @@ export class CreateNotificationDto {
   @IsNumber()
   notificationId?: number;
   @IsNumber()
-  userId: number;
+  userId: string;
   @IsString()
   type: string;
   @IsString()

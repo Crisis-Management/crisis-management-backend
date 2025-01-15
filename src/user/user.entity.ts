@@ -1,3 +1,4 @@
+import { NotificationEntity } from 'src/notification/notification.entity';
 import { Role } from '../auth/permissions.enums';
 import { RequestEntity } from '../request/request.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
@@ -43,5 +44,7 @@ export class UserEntity {
 
   @OneToMany(() => RequestEntity, (request) => request.user)
   requests: RequestEntity[];
-}
 
+  @OneToMany(() => NotificationEntity, (notification) => notification.user)
+  notifications: Notification[];
+}
