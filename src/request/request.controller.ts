@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   NotFoundException,
   Param,
   Post,
@@ -57,6 +59,6 @@ export class RequestController {
   @Delete(':id')
   async deleteRequest(@Param('id') id: number) {
     await this.requestService.deleteRequest(id);
-    return { message: 'Request deleted successfully' };
+    throw new HttpException('Request deleted successfully', HttpStatus.OK);
   }
 }

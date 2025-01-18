@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -37,13 +38,13 @@ export class UserController {
       createUserDto.email,
     );
     if (userByEmail) {
-      return { message: 'Email already exists' };
+      throw new BadRequestException('Email already exists');
     }
     const userByPhone = await this.userService.getUserByPhoneNumber(
       createUserDto.phoneNumber,
     );
     if (userByPhone) {
-      return { message: 'Phone number already exists' };
+      throw new BadRequestException('Phone number already exists');
     }
     return this.userService.createUser(createUserDto);
   }

@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
@@ -94,7 +99,7 @@ export class UserService {
     if (result.affected === 0) {
       throw new NotFoundException(`User with ID ${userId} not found`);
     }
-    return { message: `User deleted successfully` };
+    throw new HttpException('User deleted successfully', HttpStatus.OK);
   }
 
   async getUserByPhoneNumber(phoneNumber: string): Promise<any> {

@@ -1,4 +1,11 @@
-import { Body, Controller, Post, Response } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Post,
+  Response,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './auth.decorators';
 import { SignupDto, UserLoginDto } from 'src/user/user.dto';
@@ -33,6 +40,6 @@ export class AuthController {
       httpOnly: true,
       maxAge: 0,
     });
-    return res.send({ message: 'Logged out successfully' });
+    throw new HttpException('Logged out successfully', HttpStatus.OK);
   }
 }
