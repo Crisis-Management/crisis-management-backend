@@ -19,7 +19,6 @@ export class UserService {
 
   async getAllUsers(): Promise<any> {
     const allUsers = await this.usersRepository.find();
-    console.log(allUsers);
 
     const sanitizedUsers = allUsers.map((allUsers) => {
       const { userId, password, ...userdata } = allUsers;
@@ -91,7 +90,14 @@ export class UserService {
     updateUserDto: UpdateUserDto,
   ): Promise<UserEntity> {
     await this.usersRepository.update(userId, updateUserDto);
-    return this.getUserById(userId);
+    const user = await this.usersRepository.preload({
+      userId: userId,
+      ...updateUserDto,
+    });
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    return this.usersRepository.save(user);
   }
 
   async deleteUser(userId: string): Promise<{ message: string }> {

@@ -43,6 +43,8 @@ export class RequestEntity {
   @Column({ default: 'incomplete' })
   completionStatus: string;
 
-  @ManyToOne(() => UserEntity, (user) => user.requests, { onDelete: 'CASCADE' })
+  @ManyToOne(() => UserEntity, (user) => user.requests, {
+    cascade: true,
+  })
   user: UserEntity;
 }

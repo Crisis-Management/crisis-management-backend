@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './auth.decorators';
-import { SignupDto, UserLoginDto } from 'src/user/user.dto';
+import { LogInResponseDto, SignupDto, UserLoginDto } from 'src/user/user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -24,7 +24,7 @@ export class AuthController {
   async login(
     @Body() loginDto: UserLoginDto,
     @Response({ passthrough: true }) res,
-  ): Promise<any> {
+  ): Promise<LogInResponseDto> {
     const accessToken = await this.authService.userLogin(loginDto);
 
     res.cookie('access_token', accessToken, {

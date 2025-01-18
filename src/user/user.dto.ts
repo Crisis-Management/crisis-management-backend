@@ -9,6 +9,7 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from 'src/auth/permissions.enums';
+import { UserEntity } from './user.entity';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -153,4 +154,9 @@ export class UpdateUserDto {
   @IsOptional()
   @IsString()
   profilePicture?: string;
+}
+
+export class LogInResponseDto {
+  @IsString()
+  token: string;
 }
