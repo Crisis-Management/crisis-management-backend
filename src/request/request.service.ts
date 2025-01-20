@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { RequestEntity } from './request.entity';
 import { CreateRequestDto, UpdateRequestDto } from './request.dto';
 import { Repository } from 'typeorm';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 
 @Injectable()
 export class RequestService {
@@ -18,8 +19,15 @@ export class RequestService {
     return this.requestRepository.save(request);
   }
 
-  async getRequests(): Promise<RequestEntity[]> {
-    return this.requestRepository.find({ relations: ['user'] });
+  async getRequests(
+    paginationQueryDto: PaginationQueryDto,
+  ): Promise<RequestEntity[]> {
+    const { limit, offset } = paginationQueryDto;
+    return this.requestRepository.find({
+      relations: ['user'],
+      take: limit,
+      skip: offset,
+    });
   }
 
   async getRequestById(requestId: number): Promise<RequestEntity> {

@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { CreateUserDto, UpdateUserDto } from './user.dto';
 import { Role } from 'src/auth/permissions.enums';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 
 @Injectable()
 export class UserService {
@@ -17,8 +18,13 @@ export class UserService {
     private usersRepository: Repository<UserEntity>,
   ) {}
 
-  async getAllUsers(): Promise<any> {
-    const allUsers = await this.usersRepository.find();
+  async getAllUsers(paginationQuary: PaginationQueryDto): Promise<any> {
+    console.log(paginationQuary);
+    const { limit, offset } = paginationQuary;
+    const allUsers = await this.usersRepository.find({
+      skip: offset,
+      take: limit,
+    });
 
     const sanitizedUsers = allUsers.map((allUsers) => {
       const { userId, password, ...userdata } = allUsers;

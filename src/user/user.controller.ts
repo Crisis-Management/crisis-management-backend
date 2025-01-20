@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Request,
 } from '@nestjs/common';
 import { Public } from 'src/auth/auth.decorators';
@@ -14,6 +15,7 @@ import { UserService } from './user.service';
 import { CreateUserDto, UpdateUserDto } from './user.dto';
 import { Role } from 'src/auth/permissions.enums';
 import { Roles } from 'src/auth/role.decorator';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 
 @Controller('user')
 export class UserController {
@@ -21,8 +23,8 @@ export class UserController {
 
   @Get('users')
   @Public()
-  async getUsers() {
-    return await this.userService.getAllUsers();
+  async getUsers(@Query() paginationQuary: PaginationQueryDto) {
+    return await this.userService.getAllUsers(paginationQuary);
   }
 
   @Get('userByEmail')

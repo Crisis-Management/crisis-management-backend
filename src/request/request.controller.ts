@@ -9,10 +9,12 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { RequestService } from './request.service';
 import { CreateRequestDto, UpdateRequestDto } from './request.dto';
 import { UserService } from 'src/user/user.service';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 
 @Controller('request')
 export class RequestController {
@@ -34,13 +36,12 @@ export class RequestController {
       ...createRequestDto,
       user,
     };
-
     return this.requestService.createRequest(newRequest);
   }
 
   @Get()
-  async getRequests() {
-    return this.requestService.getRequests();
+  async getAllRequests(@Query() paginationQuary: PaginationQueryDto) {
+    return this.requestService.getRequests(paginationQuary);
   }
 
   @Get(':id')
