@@ -3,12 +3,12 @@ import { RequestController } from './request.controller';
 import { RequestService } from './request.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RequestEntity } from './request.entity';
-import { UserService } from 'src/user/user.service';
 import { UserEntity } from 'src/user/user.entity';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([RequestEntity, UserEntity])],
+  imports: [TypeOrmModule.forFeature([RequestEntity, UserEntity]), UserModule],
   controllers: [RequestController],
-  providers: [RequestService, UserService],
+  providers: [RequestService],
 })
 export class RequestModule {}

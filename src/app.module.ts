@@ -10,14 +10,24 @@ import { FacilityModule } from './facility/facility.module';
 import { TaskModule } from './task/task.module';
 import { NotificationModule } from './notification/notification.module';
 import { DatabaseModule } from './database/database.module';
-import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
-import { UserService } from './user/user.service';
+import { ConfigModule } from '@nestjs/config';
+import * as Joi from '@hapi/joi';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      validationSchema: Joi.object({
+        POSTGRES_HOST: Joi.string().required(),
+        PORT: Joi.number().required(),
+        POSTGRES_USER: Joi.string().required(),
+        POSTGRES_PASSWORD: Joi.string().required(),
+        POSTGRES_DB: Joi.string().required(),
+      }),
+    }),
     UserModule,
     OrganizationModule,
     RequestModule,
@@ -31,6 +41,7 @@ import { UserService } from './user/user.service';
     JwtModule,
   ],
   controllers: [AppController, AuthController],
-  providers: [AppService, AuthService, UserService],
+  providers: [AppService],
+  exports: [AppService],
 })
 export class AppModule {}
