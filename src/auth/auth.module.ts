@@ -4,9 +4,9 @@ import { AuthController } from './auth.controller';
 import { UserModule } from 'src/user/user.module';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from '../common/guards/auth.guard';
 import { UserService } from 'src/user/user.service';
-import { RolesGuard } from './roles.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
 
 @Module({
   imports: [

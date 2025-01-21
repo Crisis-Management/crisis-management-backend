@@ -10,11 +10,11 @@ import {
   Query,
   Request,
 } from '@nestjs/common';
-import { Public } from 'src/auth/auth.decorators';
+import { Public } from 'src/common/decorators/auth.decorators';
 import { UserService } from './user.service';
 import { CreateUserDto, UpdateUserDto } from './user.dto';
 import { Role } from 'src/auth/permissions.enums';
-import { Roles } from 'src/auth/role.decorator';
+import { Roles } from 'src/common/decorators/role.decorator';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 
 @Controller('user')
